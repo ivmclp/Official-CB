@@ -3,44 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Purchase ClipBoard Access</title>
-    <!-- Add Stripe.js library -->
-    <script src="https://js.stripe.com/v3/"></script>
+    <title>ClipBoard - Purchase</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Purchase ClipBoard Access</h1>
-    <p>Get full access to ClipBoard for automating TikTok and Pinterest posts.</p>
-    
-    <!-- Button to trigger payment -->
-    <button id="checkout-button">Pay Now</button>
+    <header>
+        <h1>Purchase ClipBoard</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="purchase.html">Purchase</a></li>
+                <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                <li><a href="terms-of-service.html">Terms of Service</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <script type="text/javascript">
-        // Create a Stripe instance using your public API key
-        var stripe = Stripe('your-public-stripe-key'); // Replace with your Stripe public key
+    <section class="purchase">
+        <h2>Get started with ClipBoard</h2>
+        <p>Click the button below to purchase ClipBoard and start automating your TikTok to Pinterest posts with affiliate links!</p>
+        <button onclick="window.location.href='YOUR_STRIPE_PAYMENT_URL'">Buy Now - $X.XX</button>
+    </section>
 
-        var checkoutButton = document.getElementById('checkout-button');
-        
-        checkoutButton.addEventListener('click', function () {
-            // Call your backend to create a Stripe Checkout session
-            fetch('/create-checkout-session', {  // This calls the backend to create the session
-                method: 'POST',
-            })
-            .then(function (response) {
-                return response.json();  // Parse the JSON response from the backend
-            })
-            .then(function (sessionId) {
-                // Redirect to Stripe Checkout
-                return stripe.redirectToCheckout({ sessionId: sessionId.id });
-            })
-            .then(function (result) {
-                if (result.error) {
-                    alert(result.error.message);  // Handle any errors
-                }
-            })
-            .catch(function (error) {
-                console.error('Error:', error);
-            });
-        });
-    </script>
+    <footer>
+        <p>© 2025 ClipBoard. All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
