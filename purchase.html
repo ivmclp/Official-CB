@@ -28,7 +28,7 @@
     <button class="btn" id="checkout-button">Buy Now</button>
 
     <script>
-        var stripe = Stripe("YOUR_PUBLISHABLE_KEY_HERE");
+        var stripe = Stripe(pk_live_51QtunFIVb32SeZfh8gXZR90TRWzvWsqk1h7tQrxpYVuldC3gRvQZLCJmaa9oOGklS0AfegyLjx0swtGzFI3YSuDF00N42rBNys);
 
         document.getElementById("checkout-button").addEventListener("click", function () {
             fetch("https://YOUR-NODEJS-SERVER/create-checkout-session", { method: "POST" })
