@@ -3,31 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClipBoard - Purchase</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Purchase ClipBoard</title>
+    <script src="https://js.stripe.com/v3/"></script>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 50px; }
+        h1 { color: #333; }
+        .btn {
+            background-color: #007bff;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .btn:hover { background-color: #0056b3; }
+    </style>
 </head>
 <body>
-    <header>
-        <h1>Purchase ClipBoard</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="purchase.html">Purchase</a></li>
-                <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                <li><a href="terms-of-service.html">Terms of Service</a></li>
-                <li><a href="contact.html">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section class="purchase">
-        <h2>Get started with ClipBoard</h2>
-        <p>Click the button below to purchase ClipBoard and start automating your TikTok to Pinterest posts with affiliate links!</p>
-        <button onclick="window.location.href='YOUR_STRIPE_PAYMENT_URL'">Buy Now - $X.XX</button>
-    </section>
+    <h1>Get Access to ClipBoard</h1>
+    <p>Purchase ClipBoard now and start automating your TikTok to Pinterest workflow.</p>
 
-    <footer>
-        <p>© 2025 ClipBoard. All Rights Reserved.</p>
-    </footer>
+    <button class="btn" id="checkout-button">Buy Now</button>
+
+    <script>
+        var stripe = Stripe("YOUR_PUBLISHABLE_KEY_HERE");
+
+        document.getElementById("checkout-button").addEventListener("click", function () {
+            fetch("https://YOUR-NODEJS-SERVER/create-checkout-session", { method: "POST" })
+            .then(response => response.json())
+            .then(session => {
+                return stripe.redirectToCheckout({ sessionId: session.id });
+            })
+            .then(result => {
+                if (result.error) {
+                    alert(result.error.message);
+                }
+            })
+            .catch(error => console.error("Error:", error));
+        });
+    </script>
+
 </body>
 </html>
+
