@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase ClipBoard Access</title>
+    <!-- Add Stripe.js library -->
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <h1>Purchase ClipBoard Access</h1>
+    <p>Get full access to ClipBoard for automating TikTok and Pinterest posts.</p>
+    
+    <!-- Button to trigger payment -->
+    <button id="checkout-button">Pay Now</button>
+
+    <script type="text/javascript">
+        // Create a Stripe instance using your public API key
+        var stripe = Stripe('your-public-stripe-key'); // Replace with your Stripe public key
+
+        var checkoutButton = document.getElementById('checkout-button');
+        
+        checkoutButton.addEventListener('click', function () {
+            // Call your backend to create a Stripe Checkout session
+            fetch('/create-checkout-session', {  // This calls the backend to create the session
+                method: 'POST',
+            })
+            .then(function (response) {
+                return response.json();  // Parse the JSON response from the backend
+            })
+            .then(function (sessionId) {
+                // Redirect to Stripe Checkout
+                return stripe.redirectToCheckout({ sessionId: sessionId.id });
+            })
+            .then(function (result) {
+                if (result.error) {
+                    alert(result.error.message);  // Handle any errors
+                }
+            })
+            .catch(function (error) {
+                console.error('Error:', error);
+            });
+        });
+    </script>
+</body>
+</html>
